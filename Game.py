@@ -10,7 +10,9 @@ run = True
 x = 250
 y = 250
 radius = 15
-vel = 10
+vel_x = 10
+vel_y = 10
+jump = False
 
 while run:
 
@@ -26,11 +28,20 @@ while run:
     userInput = pygame.key.get_pressed()
 
     if userInput[pygame.K_LEFT] and x > 15:
-        x -= vel
+        x -= vel_x
     if userInput[pygame.K_RIGHT] and x < 500-15:
-        x += vel
+        x += vel_x
 
-    pygame.time.delay(10)
+    if jump is False and userInput[pygame.K_SPACE]:
+        jump = True
+    if jump:
+        y -= vel_y * 4
+        vel_y -= 1
+        if vel_y < -10:
+            jump = False
+            vel_y = 10
+
+    pygame.time.delay(30)
 
     
     pygame.display.update()
